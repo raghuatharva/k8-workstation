@@ -11,4 +11,4 @@ managedNodeGroups:
     desiredCapacity: 3
     spot: true
     availabilityZones:
-    - us-east-1d
+    - us-east-1f
