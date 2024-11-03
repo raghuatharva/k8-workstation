@@ -10,5 +10,5 @@ managedNodeGroups:
     instanceType: m5.large
     desiredCapacity: 3
     spot: true
-    availabilityZones:
-    - us-east-1f
+    # availabilityZones:
+    # - us-east-1f
