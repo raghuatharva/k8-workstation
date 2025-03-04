@@ -9,7 +9,7 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
-ARCH=$(uname -m)
+ARCH="amd64"
 PLATFORM=$(uname -s)_$ARCH
 
 VALIDATE(){
