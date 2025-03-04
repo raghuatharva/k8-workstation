@@ -40,9 +40,20 @@ usermod -aG docker ec2-user
 VALIDATE $? "Docker installation"
 
 # eksctl
-curl -sLo /usr/local/bin/eksctl "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_Linux_${ARCH}"
-chmod +x /usr/local/bin/eksctl
-eksctl version
+# Download the tarball with a user agent to ensure GitHub returns the expected asset
+curl -sL -A "Mozilla/5.0" -o eksctl_Linux_${ARCH}.tar.gz "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_Linux_${ARCH}.tar.gz"
+# Verify that the downloaded file is indeed a gzip file
+file eksctl_Linux_${ARCH}.tar.gz
+
+# Extract the tarball and remove it
+tar -xzf eksctl_Linux_${ARCH}.tar.gz -C /tmp && rm eksctl_Linux_${ARCH}.tar.gz
+
+# Make sure the extracted binary is executable and move it to /usr/local/bin
+chmod +x /tmp/eksctl
+mv /tmp/eksctl /usr/local/bin/eksctl
+
+# Verify the installation
+/usr/local/bin/eksctl version
 VALIDATE $? "eksctl installation"
 
 
