@@ -40,10 +40,8 @@ usermod -aG docker ec2-user
 VALIDATE $? "Docker installation"
 
 # eksctl
-curl -sLO "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_Linux_${ARCH}.tar.gz"
-tar -xzf eksctl_Linux_${ARCH}.tar.gz -C /tmp && rm eksctl_Linux_${ARCH}.tar.gz
-chmod +x /tmp/eksctl
-mv /tmp/eksctl /usr/local/bin
+curl -sLo /usr/local/bin/eksctl "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_Linux_${ARCH}"
+chmod +x /usr/local/bin/eksctl
 eksctl version
 VALIDATE $? "eksctl installation"
 
