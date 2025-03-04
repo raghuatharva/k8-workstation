@@ -31,7 +31,7 @@ else
 fi
 
 # docker
-yum install -y yum-utils
+yum install -y yum-utils git
 yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 yum install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 systemctl start docker
@@ -40,7 +40,7 @@ usermod -aG docker ec2-user
 VALIDATE $? "Docker installation"
 
 # eksctl
-curl -sLO "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_$PLATFORM.tar.gz"
+curl -sLO "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$PLATFORM.tar.gz"
 tar -xzf eksctl_$PLATFORM.tar.gz -C /tmp && rm eksctl_$PLATFORM.tar.gz
 mv /tmp/eksctl /usr/local/bin
 eksctl version
@@ -48,8 +48,9 @@ VALIDATE $? "eksctl installation"
 
 
 # kubectl
-curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.31.0/2024-09-12/bin/linux/amd64/kubectl
+curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/latest/bin/linux/amd64/kubectl
 chmod +x ./kubectl
+chown root:root /usr/local/bin/kubectl
 mv kubectl /usr/local/bin/kubectl
 VALIDATE $? "kubectl installation"
 
