@@ -40,25 +40,18 @@ usermod -aG docker ec2-user
 VALIDATE $? "Docker installation"
 
 # eksctl
-# Download the tarball with a user agent to ensure GitHub returns the expected asset
 curl -sL -A "Mozilla/5.0" -o eksctl_Linux_${ARCH}.tar.gz "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_Linux_${ARCH}.tar.gz"
 # Verify that the downloaded file is indeed a gzip file
 file eksctl_Linux_${ARCH}.tar.gz
-
-# Extract the tarball and remove it
 tar -xzf eksctl_Linux_${ARCH}.tar.gz -C /tmp && rm eksctl_Linux_${ARCH}.tar.gz
-
-# Make sure the extracted binary is executable and move it to /usr/local/bin
 chmod +x /tmp/eksctl
 mv /tmp/eksctl /usr/local/bin/eksctl
-
-# Verify the installation
 /usr/local/bin/eksctl version
 VALIDATE $? "eksctl installation"
 
 
 # kubectl
-curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/latest/bin/linux/amd64/kubectl
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 chmod +x ./kubectl
 chown root:root /usr/local/bin/kubectl
 mv kubectl /usr/local/bin/kubectl
