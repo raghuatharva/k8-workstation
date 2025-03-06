@@ -1,0 +1,14 @@
+----------- to start a workstation instance through CLI
+
+aws ec2 run-instances \
+  --launch-template LaunchTemplateName="MyTemplate",Version=1 \
+  --region ap-south-1
+
+
+
+--------- to get the public ip 
+
+aws ec2 describe-instances \
+  --filters "Name=launch-template-name,Values=MyTemplate" \
+  --query "Reservations[].Instances[].PublicIpAddress" \
+  --region ap-south-1
