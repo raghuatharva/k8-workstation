@@ -64,7 +64,19 @@ VALIDATE $? "kubens installation"
 
 
 # Helm
-# curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-# chmod 700 get_helm.sh
-# ./get_helm.sh
-# VALIDATE $? "helm installation"
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+VALIDATE $? "helm installation"
+
+#k9s
+curl -sS https://webinstall.dev/k9s | bash
+
+#ebs-csi-driver
+kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=release-1.36"
+VALIDATE $? "ebs drivers installation"
+
+#efs-csi-driver
+kubectl apply -k "github.com/kubernetes-sigs/aws-efs-csi-driver/deploy/kubernetes/overlays/stable/ecr/?ref=release-1.3"
+VALIDATE $? "efs drivers installation"
+
