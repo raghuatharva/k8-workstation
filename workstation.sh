@@ -82,6 +82,6 @@ VALIDATE $? "k9s installation"
 #efs-csi-driver
 kubectl kustomize \
     "github.com/kubernetes-sigs/aws-efs-csi-driver/deploy/kubernetes/overlays/stable/ecr/?ref=release-2.1" > private-ecr-driver.yaml
-kubectl apply -f private-ecr-driver.yaml
+kubectl apply -f private-ecr-driver.yaml --validate=false
 VALIDATE $? "EFS CSI driver installation"
 
