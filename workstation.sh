@@ -58,9 +58,9 @@ mv kubectl /usr/local/bin/kubectl
 VALIDATE $? "kubectl installation"
 
 # # kubens
-# git clone https://github.com/ahmetb/kubectx /opt/kubectx
-# ln -s /opt/kubectx/kubens /usr/local/bin/kubens
-# VALIDATE $? "kubens installation"
+git clone https://github.com/ahmetb/kubectx /opt/kubectx
+ln -s /opt/kubectx/kubens /usr/local/bin/kubens
+VALIDATE $? "kubens installation"
 
 
 # Helm
@@ -76,12 +76,12 @@ curl -sS https://webinstall.dev/k9s | bash
 VALIDATE $? "k9s installation"
 
 #ebs-csi-driver
-# kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=release-1.40"
-# VALIDATE $? "ebs drivers installation"
+kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=release-1.40"
+VALIDATE $? "ebs drivers installation"
 
 #efs-csi-driver
 kubectl kustomize \
     "github.com/kubernetes-sigs/aws-efs-csi-driver/deploy/kubernetes/overlays/stable/ecr/?ref=release-2.1" > private-ecr-driver.yaml
-kubectl apply -f private-ecr-driver.yaml --validate=false
+kubectl apply -f private-ecr-driver.yaml 
 VALIDATE $? "EFS CSI driver installation"
 
