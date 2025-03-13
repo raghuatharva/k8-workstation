@@ -75,11 +75,12 @@ VALIDATE $? "helm installation"
 curl -sS https://webinstall.dev/k9s | bash
 
 #ebs-csi-driver
-kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=release-1.36" --validate=false
-
+kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=release-1.40"
 VALIDATE $? "ebs drivers installation"
 
 #efs-csi-driver
-kubectl apply -k "github.com/kubernetes-sigs/aws-efs-csi-driver/deploy/kubernetes/overlays/stable/ecr/?ref=release-1.3" --validate=false
-VALIDATE $? "efs drivers installation"
+kubectl kustomize \
+    "github.com/kubernetes-sigs/aws-efs-csi-driver/deploy/kubernetes/overlays/stable/ecr/?ref=release-2.1" > private-ecr-driver.yaml
+kubectl apply -f private-ecr-driver.yaml
+VALIDATE $? "EFS CSI driver installation"
 
