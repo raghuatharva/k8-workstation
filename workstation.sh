@@ -76,8 +76,8 @@ curl -sS https://webinstall.dev/k9s | bash
 VALIDATE $? "k9s installation"
 
 #ebs-csi-driver
-kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=release-1.40"
-VALIDATE $? "ebs drivers installation"
+# kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=release-1.40"
+# VALIDATE $? "ebs drivers installation"
 
 #efs-csi-driver
 kubectl kustomize \
