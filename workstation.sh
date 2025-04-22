@@ -85,3 +85,7 @@ kubectl kustomize \
 kubectl apply -f private-ecr-driver.yaml 
 VALIDATE $? "EFS CSI driver installation"
 
+#mysql client to connect rds 
+sudo dnf install mysql -y
+
+mysql -h mysql-dev.rohanandlife.site -u root -p ExpenseApp@1 < /path/to/your/schema.sql
